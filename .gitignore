@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets & local data — never commit
+config/.env
+data/profile/profile.yaml
+data/*.db
+data/**/*.pdf
+data/**/*.docx
+data/output/
+data/browser_profiles/
+data/raw/*.json
+data/outreach_send_log.txt
+data/outreach_suppression.txt
+
+# OS
+.DS_Store
+Thumbs.db

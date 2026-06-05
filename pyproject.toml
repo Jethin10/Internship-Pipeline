@@ -1,0 +1,58 @@
+[project]
+name = "intern-piperline"
+version = "0.1.0"
+description = "Autonomous job/internship application engine: discover, tailor, apply, reach out."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    # Part A — aggregator (installed from the local ./aggregator-jobspy clone
+    # via [tool.uv.sources] below — its numpy/pandas pins are flexible, unlike
+    # the PyPI python-jobspy which hard-pins numpy==1.26.3 with no py3.13 wheel)
+    "python-jobspy",
+    # force versions that ship cp313 wheels (avoid source builds on 3.13)
+    "numpy>=2.1",
+    "pandas>=2.2",
+    # contracts + config
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    # LLM gateway (model/provider agnostic)
+    "litellm>=1.40",
+    # CLI + output
+    "typer>=0.12",
+    "rich>=13.7",
+    # store
+    "sqlalchemy>=2.0",
+    # rendering (HTML resume) + headless-Chromium PDF engine (reliable on Windows)
+    "jinja2>=3.1",
+    "playwright>=1.44",
+    # anti-detection: stealth patches for browser automation
+    "playwright-stealth>=2.0",
+    # outreach: MX-record verification of contact domains
+    "dnspython>=2.6",
+]
+
+[project.optional-dependencies]
+# alternative PDF engine (WeasyPrint needs GTK on Windows; Chromium is default)
+render = ["weasyprint>=62", "python-docx>=1.1"]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+piperline = "piperline.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["piperline"]
+
+# Use the local, editable JobSpy clone as the aggregator engine. This is the
+# base we refine — depending on the source (not the frozen PyPI release) is what
+# lets us customize it and dodges its incompatible numpy pin.
+[tool.uv.sources]
+python-jobspy = { path = "aggregator-jobspy", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

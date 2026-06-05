@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ p.basics.name }} — Resume</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #1f2937; font-size: 10.5pt; line-height: 1.4; margin: 0;
+  }
+  h1 { font-size: 21pt; margin: 0 0 2px 0; color: #111827; letter-spacing: .3px; }
+  .headline { color: {{ accent }}; font-weight: 600; font-size: 11pt; margin: 0 0 4px; }
+  .contact { font-size: 9pt; color: #4b5563; }
+  .contact a { color: #4b5563; text-decoration: none; }
+  .contact span { white-space: nowrap; }
+  h2 {
+    font-size: 11pt; text-transform: uppercase; letter-spacing: 1px;
+    color: {{ accent }}; border-bottom: 1.5px solid {{ accent }};
+    padding-bottom: 2px; margin: 14px 0 7px;
+  }
+  .summary { margin: 8px 0 0; }
+  .item { margin-bottom: 9px; }
+  .item-head { display: flex; justify-content: space-between; gap: 10px; }
+  .item-title { font-weight: 600; color: #111827; }
+  .item-org { font-weight: 600; }
+  .item-meta { color: #6b7280; font-size: 9pt; white-space: nowrap; }
+  ul { margin: 3px 0 0; padding-left: 16px; }
+  li { margin: 1px 0; }
+  .tech { color: #6b7280; font-size: 9pt; font-style: italic; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+  .skill {
+    background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px;
+    padding: 1px 7px; font-size: 9pt;
+  }
+  .ach li { margin: 2px 0; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>{{ p.basics.name }}</h1>
+    {% if p.basics.headline %}<div class="headline">{{ p.basics.headline }}</div>{% endif %}
+    <div class="contact">
+      {% if p.basics.email %}<span>{{ p.basics.email }}</span>{% endif %}
+      {% if p.basics.phone %} &nbsp;•&nbsp; <span>{{ p.basics.phone }}</span>{% endif %}
+      {% if p.basics.location %} &nbsp;•&nbsp; <span>{{ p.basics.location }}</span>{% endif %}
+      {% for label, url in p.links.items() %} &nbsp;•&nbsp; <span><a href="{{ url }}">{{ label }}</a></span>{% endfor %}
+    </div>
+  </header>
+
+  {% if p.summary %}
+  <section>
+    <h2>Summary</h2>
+    <div class="summary">{{ p.summary }}</div>
+  </section>
+  {% endif %}
+
+  {% if p.experience %}
+  <section>
+    <h2>Experience</h2>
+    {% for e in p.experience %}
+    <div class="item">
+      <div class="item-head">
+        <span><span class="item-title">{{ e.role }}</span>{% if e.organization %} — <span class="item-org">{{ e.organization }}</span>{% endif %}</span>
+        <span class="item-meta">{% if e.start %}{{ e.start }}{% if e.end %} – {{ e.end }}{% endif %}{% endif %}{% if e.location %} · {{ e.location }}{% endif %}</span>
+      </div>
+      {% if e.highlights %}<ul>{% for h in e.highlights %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}
+      {% if e.tech %}<div class="tech">{{ e.tech | join(", ") }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if p.projects %}
+  <section>
+    <h2>Projects</h2>
+    {% for pr in p.projects %}
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">{{ pr.title }}</span>
+        {% if pr.links %}<span class="item-meta">{% for l, u in pr.links.items() %}{{ u }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
+      </div>
+      {% if pr.summary %}<div>{{ pr.summary }}</div>{% endif %}
+      {% if pr.impact %}<ul>{% for i in pr.impact %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+      {% if pr.tech %}<div class="tech">{{ pr.tech | join(", ") }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if p.skills %}
+  <section>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      {% for s in p.skills %}<span class="skill">{{ s.name }}</span>{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if p.education %}
+  <section>
+    <h2>Education</h2>
+    {% for ed in p.education %}
+    <div class="item">
+      <div class="item-head">
+        <span><span class="item-org">{{ ed.institution }}</span>{% if ed.degree %} — {{ ed.degree }}{% if ed.field %}, {{ ed.field }}{% endif %}{% endif %}</span>
+        <span class="item-meta">{% if ed.start %}{{ ed.start }}{% if ed.end %} – {{ ed.end }}{% endif %}{% endif %}{% if ed.gpa %} · GPA {{ ed.gpa }}{% endif %}</span>
+      </div>
+      {% if ed.highlights %}<ul>{% for h in ed.highlights %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if p.achievements %}
+  <section>
+    <h2>Achievements</h2>
+    <ul class="ach">{% for a in p.achievements %}<li>{{ a }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+</body>
+</html>

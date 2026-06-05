@@ -1,0 +1,68 @@
+# Master Profile — the single source of truth about you.
+# Copy to  profile.yaml  and replace with your real details.
+# Tailoring will SELECT and REFRAME these facts; it will never invent new ones.
+
+basics:
+  name: Jane Doe
+  email: jane.doe@example.com
+  phone: "+1 555 0100"
+  location: "Bengaluru, India"
+  headline: "CS undergrad • backend + ML • building things that ship"
+
+summary: >
+  Final-year CS student who likes turning messy problems into reliable systems.
+  Comfortable across the stack, happiest in the backend and data layers.
+
+education:
+  - institution: Example Institute of Technology
+    degree: B.Tech
+    field: Computer Science
+    start: "2022"
+    end: "expected 2026"
+    gpa: "8.7/10"
+    highlights:
+      - "Coursework: Distributed Systems, ML, Databases, Operating Systems"
+
+experience:
+  - role: Backend Engineering Intern
+    organization: Acme Corp
+    location: Remote
+    start: "2025-05"
+    end: "2025-08"
+    highlights:
+      - "Cut p99 API latency 40% by adding a Redis read-through cache"
+      - "Shipped an idempotent job queue handling 50k tasks/day"
+    tech: [Python, FastAPI, Redis, PostgreSQL]
+
+projects:
+  - title: Intern Piperline
+    summary: Autonomous job-application engine (this project).
+    impact:
+      - "Discovers, tailors, applies, and reaches out — model-agnostic"
+    tech: [Python, LiteLLM, JobSpy, Playwright]
+    links:
+      repo: https://github.com/yourname/intern-piperline
+
+  - title: Realtime Chat Backend
+    summary: WebSocket chat service with presence + history.
+    impact:
+      - "Handled 5k concurrent connections on a single node"
+    tech: [Go, WebSockets, Redis]
+    links:
+      repo: https://github.com/yourname/realtime-chat
+
+achievements:
+  - "Winner, Example Hack 2025 (200+ teams)"
+  - "Maintainer of an OSS library with 1.2k GitHub stars"
+
+skills:
+  - { name: Python, category: language, level: expert }
+  - { name: Go, category: language, level: proficient }
+  - { name: FastAPI, category: framework, level: proficient }
+  - { name: PostgreSQL, category: tool, level: proficient }
+  - { name: Docker, category: tool, level: proficient }
+
+links:
+  github: https://github.com/yourname
+  portfolio: https://yourname.dev
+  linkedin: https://linkedin.com/in/yourname

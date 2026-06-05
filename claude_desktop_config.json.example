@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy this file to your Claude Desktop config (see MCP_SETUP.md). Update the paths to match your machine.",
+  "mcpServers": {
+    "internship-pipeline": {
+      "command": "ABSOLUTE/PATH/TO/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "piperline.matcher_mcp.server"
+      ],
+      "env": {
+        "PYTHONPATH": "ABSOLUTE/PATH/TO/Internship-Pipeline"
+      }
+    }
+  }
+}
